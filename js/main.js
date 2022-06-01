@@ -1,4 +1,4 @@
-let equlat = [];
+let equlat = "";
 document.querySelector("#one").addEventListener("click", () =>{
     clickEvent("#one");
 });
@@ -49,12 +49,14 @@ document.querySelector("#calculate").addEventListener("click",calcEvent)
 function clickEvent(s1){
     let value = document.querySelector(s1).innerHTML;
     document.querySelector("#displayMonitor").innerHTML += value;
-    equlat.push(value);
+    equlat+=value;
 }
 function calcEvent(){
     let equ = document.querySelector("#displayMonitor").innerHTML;
     console.log(equ);
-    console.log(equlat);
+    let newEqu = equ.split("x");
+    console.log(newEqu);
+    
 }
 function Calculator(){
     let currentValue = 0;
