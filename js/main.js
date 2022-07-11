@@ -1,64 +1,70 @@
-let equlat = "";
-document.querySelector("#one").addEventListener("click", () =>{
-    clickEvent("#one");
-});
-document.querySelector("#two").addEventListener("click", () =>{
-    clickEvent("#two");
-});
-document.querySelector("#three").addEventListener("click", () =>{
-    clickEvent("#three");
-});
-document.querySelector("#four").addEventListener("click", () =>{
-    clickEvent("#four");
-});
-document.querySelector("#five").addEventListener("click", () =>{
-    clickEvent("#five");
-});
-document.querySelector("#six").addEventListener("click", () =>{
-    clickEvent("#six");
-});
-document.querySelector("#seven").addEventListener("click", () =>{
-    clickEvent("#seven");
-});
-document.querySelector("#eight").addEventListener("click", () =>{
-    clickEvent("#eight");
-});
-document.querySelector("#nine").addEventListener("click", () =>{
-    clickEvent("#nine");
-});
-document.querySelector("#zero").addEventListener("click", () =>{
-    clickEvent("#zero");
-});
-document.querySelector("#division").addEventListener("click", () =>{
-    clickEvent("#division");
-});
-document.querySelector("#multiply").addEventListener("click", () =>{
-    clickEvent("#multiply");
-});
-document.querySelector("#add").addEventListener("click", () =>{
-    clickEvent("#add");
-});
-document.querySelector("#sub").addEventListener("click", () =>{
-    clickEvent("#sub");
-});
-document.querySelector("#decimal").addEventListener("click", () =>{
-    clickEvent("#decimal");
-});
-document.querySelector("#calculate").addEventListener("click",calcEvent)
-
-function clickEvent(s1){
-    let value = document.querySelector(s1).innerHTML;
-    document.querySelector("#displayMonitor").innerHTML += value;
-    equlat+=value;
+let instructions = [];
+let num = [];
+btns = document.getElementsByClassName("value");
+for(let i =0 ; i < btns.length;i++){
+  btns[i].addEventListener("click",() =>{
+    let value = btns[i].innerHTML;
+    if(value ==="="){
+      console.log(num);
+      instructions.push(num.join(""));
+      calcEvent();
+    }else if (value ==="C"){
+      instructions = [];
+      resetNum()
+      document.querySelector("#monitor").innerHTML = "";
+      console.log(instructions)
+    }else if(value === "+"){
+      instructions.push(num.join(""));
+      instructions.push(addition);
+      document.querySelector("#monitor").innerHTML += value;
+      resetNum()
+    }else if(value === "-"){
+      instructions.push(num.join(""));
+      instructions.push(substraction);
+      document.querySelector("#monitor").innerHTML += value;
+      resetNum()
+    }else if(value === "x"){
+      instructions.push(num.join(""));
+      instructions.push(multiplication);
+      document.querySelector("#monitor").innerHTML += value;
+      resetNum()
+    }else if(value === "/"){
+      instructions.push(num.join(""));
+      instructions.push(division);
+      document.querySelector("#monitor").innerHTML += value;
+      resetNum()
+    }else{
+      document.querySelector("#monitor").innerHTML += value;
+      num.push(value);
+      console.log(value);
+      console.log(num);
+    }
+  });
 }
 function calcEvent(){
-    let equ = document.querySelector("#displayMonitor").innerHTML;
-    console.log(equ);
-    let newEqu = equ.split("x");
-    console.log(newEqu);
-    
+document.querySelector("#monitor").innerHTML = instructions[1](instructions[0],instructions[2]);
+ num = instructions[1](instructions[0],instructions[2]);
+  console.log(instructions);
+}
+function addition(n1,n2){
+  return operation(n1,"+",n2);
+}
+function substraction(n1,n2){
+  return operation(n1,"-",n2);
+}
+function multiplication(n1,n2){
+  return operation(n1,"*",n2);
+}
+function division(n1,n2){
+  return operation(n1,"/",n2);
+}
+function operation(n1,operator,n2){
+  return eval(n1+operator+n2);
 }
 function Calculator(){
     let currentValue = 0;
     let equation = "";
+}
+function resetNum(){
+  num = [];
 }
