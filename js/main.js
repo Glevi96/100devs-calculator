@@ -1,70 +1,27 @@
-let instructions = [];
-let num = [];
+let instructions = "";
 btns = document.getElementsByClassName("value");
 for(let i =0 ; i < btns.length;i++){
   btns[i].addEventListener("click",() =>{
     let value = btns[i].innerHTML;
     if(value ==="="){
-      console.log(num);
-      instructions.push(num.join(""));
       calcEvent();
     }else if (value ==="C"){
-      instructions = [];
-      resetNum()
+      instructions = "";
       document.querySelector("#monitor").innerHTML = "";
-      console.log(instructions)
-    }else if(value === "+"){
-      instructions.push(num.join(""));
-      instructions.push(addition);
-      document.querySelector("#monitor").innerHTML += value;
-      resetNum()
-    }else if(value === "-"){
-      instructions.push(num.join(""));
-      instructions.push(substraction);
-      document.querySelector("#monitor").innerHTML += value;
-      resetNum()
     }else if(value === "x"){
-      instructions.push(num.join(""));
-      instructions.push(multiplication);
+      instructions+="*";
       document.querySelector("#monitor").innerHTML += value;
-      resetNum()
-    }else if(value === "/"){
-      instructions.push(num.join(""));
-      instructions.push(division);
-      document.querySelector("#monitor").innerHTML += value;
-      resetNum()
     }else{
-      document.querySelector("#monitor").innerHTML += value;
-      num.push(value);
-      console.log(value);
-      console.log(num);
+      instruct(value);
     }
   });
 }
+function instruct(val){
+  instructions+=val;
+  document.querySelector("#monitor").innerHTML += val;
+}
 function calcEvent(){
-document.querySelector("#monitor").innerHTML = instructions[1](instructions[0],instructions[2]);
- num = instructions[1](instructions[0],instructions[2]);
-  console.log(instructions);
-}
-function addition(n1,n2){
-  return operation(n1,"+",n2);
-}
-function substraction(n1,n2){
-  return operation(n1,"-",n2);
-}
-function multiplication(n1,n2){
-  return operation(n1,"*",n2);
-}
-function division(n1,n2){
-  return operation(n1,"/",n2);
-}
-function operation(n1,operator,n2){
-  return eval(n1+operator+n2);
-}
-function Calculator(){
-    let currentValue = 0;
-    let equation = "";
-}
-function resetNum(){
-  num = [];
+  let result = eval(instructions).toFixed(5);
+  document.querySelector("#monitor").innerHTML = result;
+  instructions = result;
 }
